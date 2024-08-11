@@ -3,12 +3,10 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import userRoutes from "./routes/user.routes.js";
 import authRoutes from "./routes/auth.routes.js";
-dotenv.config();
+dotenv.config({ path: "../.env" });
 
 mongoose
-  .connect(
-    "mongodb+srv://vinayakdevare369:vinayakdevare369@auth-mern.dmzdgh5.mongodb.net/auth-mern?retryWrites=true&w=majority&appName=auth-mern"
-  )
+  .connect(process.env.MONGODB)
   .then(() => {
     console.log("connected to mongo db");
   })
