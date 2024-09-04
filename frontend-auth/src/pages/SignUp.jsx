@@ -1,10 +1,11 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function SignUp() {
   const [formData, setFormData] = useState({});
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   const handleInputChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
@@ -27,9 +28,12 @@ export default function SignUp() {
       console.log(responseData);
 
       setLoading(false);
+      navigate("/sign-in");
       if (responseData.error === "User already exists") {
         setError(true);
         return;
+      } else {
+        setError(false);
       }
     } catch (error) {
       setLoading(false);
@@ -71,12 +75,12 @@ export default function SignUp() {
         >
           {loading ? "Loading..." : "Sign Up"}
         </button>
-        {/* <button
+        <button
           id="continue-with-google"
           className="bg-red-600 text-white p-3 rounded-lg uppercase hover:opacity-95 disabled:placeholder-opacity-80"
         >
           Continue with google
-        </button> */}
+        </button>
       </form>
       <div className="flex gap-1 mt-5">
         <p>Have an account? </p>
